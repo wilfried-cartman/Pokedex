@@ -18,8 +18,8 @@ export class PokedexEffects {
 
   getPokedexAll$ = createEffect(() => this.actions$.pipe(
     ofType(pokedexActions.getPokedex),
-    switchMap(({ url, page }) => {
-      if(this.StoreDictionnary.get(page)){
+    switchMap(({ url, page, forceReset }) => {
+      if(!forceReset && this.StoreDictionnary.get(page)){
         const observable = this.QueueDictionnary.get(page)?.asObservable() || new Observable();
         return from(observable).pipe(
           map((data: PokedexDataContract) => {

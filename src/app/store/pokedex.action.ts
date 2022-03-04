@@ -3,7 +3,7 @@ import { PokedexDataContract } from '../models/pokedex';
 
 export const getPokedex = createAction(
     '[POKEDEX] List',
-    props<{ url: string, page: string }>()
+    props<{ url: string, page: string, forceReset: boolean }>()
 );
 
 export const getPokedexSuccess = createAction(

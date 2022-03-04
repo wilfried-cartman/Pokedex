@@ -47,7 +47,7 @@ export class PokedexListComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.goToPage(this.currentPage);
+    this.goToPage(this.currentPage, true);
   }
 
   onSelectedItem(item: Pokedex, content: any){
@@ -83,12 +83,12 @@ export class PokedexListComponent implements OnInit {
     };   
   }
 
-  goToPage(page: number): void{
+  goToPage(page: number, forceReset = false): void{
     this.currentPage = page;
     page = (page - 1);
     this.areDatasLoading = true;
     const url = `${environment.apiUrl}?offset=${page*this.queryParams.limit}&limit=${this.queryParams.limit}`
-    this.store.dispatch(getPokedex({ url, page: page.toString() }));
+    this.store.dispatch(getPokedex({ url, page: page.toString(), forceReset }));
     this.store.pipe(
       select(getPokedexSelector),
       delay(10)
