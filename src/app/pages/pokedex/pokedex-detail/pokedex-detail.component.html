@@ -1,0 +1,10 @@
+
+<p>Name: <span class="badge badge-light">{{data?.name}}</span></p>
+<p>Types: <span class="badge badge-light">{{getTypesAsString(data?.types)}}</span> </p>
+<p *ngIf="data?.species?.evolves_from_species">Evolution:
+<a *ngIf="data?.species?.evolves_from_species?.url" target="_blank"
+    [href]="data?.species?.evolves_from_species?.url">{{data?.species?.evolves_from_species?.name}}</a>
+</p>
+<p>Height: <span class="badge badge-light">{{data?.height}}</span> </p>
+<p>Weight: <span class="badge badge-light">{{data?.weight}}</span> </p>
+<p>Base Experience: <span class="badge badge-light">{{data?.base_experience}}</span> </p>

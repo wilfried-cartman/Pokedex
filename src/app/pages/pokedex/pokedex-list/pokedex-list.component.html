@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="title">
+    List of Pokemons
+  </div>
+  <div *ngIf="!areDatasLoading" class="card-container">
+    <span *ngFor="let pokedex of pokedexList" (click)="onSelectedItem(pokedex, content)" class="card-item"
+      target="_blank" rel="noopener" href="https://angular.io/tutorial">
+      <span>{{pokedex.name}}</span>
+    </span>
+
+  </div>
+  <div *ngIf="areDatasLoading" class="card-container">
+    <span class="center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </span>
+  </div>
+  <div *ngIf="!areDatasLoading && (pokedexList?.length === 0)" class="col-12 text-center">
+    <span class="">...No Content...</span>
+  </div>
+  <ul class="pagination">
+    <li class="icon" (click)="prevPage()">
+      <a [href]=""><span class="fas fa-angle-left"></span>Previous</a>
+    </li>
+    <ng-container *ngFor="let page of pagination?.pages">
+      <li [class]="'page-item ' + (page === currentPage ? 'active': '')">
+        <a class="page-link pointer" (click)="goToPage(page)">{{page}}</a>
+      </li>
+    </ng-container>
+    <li class="icon" (click)="nextPage()">
+      <a [href]="">Next<span class="fas fa-angle-right"></span></a>
+    </li>
+  </ul>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Pokemon's Information</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')">X</button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngIf="!isDetailLoading">
+        <app-pokedex-detail [data]="selectedPokedex"></app-pokedex-detail>
+    </ng-container>
+
+    <span class="center" *ngIf="isDetailLoading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+  </div>
+</ng-template>
